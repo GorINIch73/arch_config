@@ -1,0 +1,218 @@
+{
+  "layer": "top",
+  "position": "top",
+  "mod": "dock",
+  "exclusive": true,
+  "passthrough": false,
+  "gtk-layer-shell": true,
+  "height": 40,
+  "margin-top": 2,
+
+
+  "modules-left": [
+    "custom/launch_wofi",
+    "hyprland/workspaces",
+    "wlr/taskbar",
+    "tray",
+    "hyprland/window"
+  ],
+  "modules-center": [
+    "clock",
+    "idle_inhibitor"
+  ],
+  "modules-right": [
+    "network",
+    "custom/weather",
+    "cpu",
+    "memory",
+    "disk",
+    "temperature",
+    "backlight",
+    "pulseaudio",
+    "pulseaudio#microphone",
+    "battery",
+    "custom/power_btn"
+  ],
+
+  "custom/launch_wofi": {
+    "format": "  ",
+//    "on-click": "~/.config/rofi/launchers/launcher.sh",
+     "on-click": "tofi-drun",
+    "tooltip": false
+    },
+
+  "hyprland/window": {
+      "format": "{}"
+  },
+
+   "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "   on",
+            "deactivated": "  "
+        },
+        "tooltip": true
+    },
+
+  "wlr/taskbar": {
+      "format": "{icon}",
+      "icon-size": 24,
+      "all-outputs": true,
+      "tooltip-format": "{name}",
+      "on-click": "activate",
+      "on-click-middle": "close",
+      "ignore-list": [
+          "wofi",
+          "kitty"
+      ],
+      "app_ids-mapping": {
+          "steam_app_39210": "Final Fantasy 14"
+      }
+  },
+
+  "cpu": {
+    "interval": 10,
+    "format": "  {usage}%",
+    "max-length": 10,
+    "on-click": "kitty --start-as=fullscreen --title btop sh -c 'btop'"
+  },
+
+  "memory": {
+    "interval": 30,
+    "format": "  {}%",
+    "max-length": 10,
+    "tooltip": true,
+    "tooltip-format": "Memory - {used:0.1f}GB used",
+    "on-click": "kitty --start-as=fullscreen --title btop sh -c 'btop'"
+  },
+
+  "disk": {
+    "interval": 30,
+    "format": "󰋊  {percentage_used}%",
+    "path": "/",
+    "tooltip": true,
+    "tooltip-format": "HDD - {used} used out of {total} on {path} ({percentage_used}%)",
+    "on-click": "kitty --start-as=fullscreen --title btop sh -c 'btop'"
+  },
+
+  "temperature": {
+    "thermal-zone": 1,
+      "format": "",
+      "format": " {temperatureC}°C",
+      "critical-threshold": 50,
+      "format-critical": " {temperatureC}°C",
+      "on-click": "kitty --start-as=fullscreen --title btop sh -c 'btop'"
+  },
+
+  "network": {
+    "interface": "wlp3s0",
+    "interval": 1,
+    "format": "  {bandwidthDownBytes}    {bandwidthUpBytes}",
+    "format-disconnected": " 󰞃 ",
+    "tooltip": false
+  },
+
+  "tray": {
+    "icon-size": 22,
+    "spacing": 10
+  },
+
+  "backlight": {
+    "device": "intel_backlight",
+    "format": "{icon} {percent}%",
+    "format-icons": ["󰃞", "󰃝", "󰃟", "󰃠"],
+    "on-scroll-up": "~/.config/waybar/scripts/brightness --inc",
+    "on-scroll-down": "~/.config/waybar/scripts/brightness --dec",
+    "min-length": 6
+  },
+
+  "pulseaudio": {
+    "format": "{icon} {volume}%",
+    "format-muted": "󰖁 ",
+    "on-click": "~/.config/waybar/scripts/volume --toggle",
+    "on-click-right": "pavucontrol",
+    "on-scroll-up": "~/.config/waybar/scripts/volume --inc",
+    "on-scroll-down": "~/.config/waybar/scripts/volume --dec",
+    "scroll-step": 1,
+    "format-icons": {
+      "headphone": " ",
+      "hands-free": " ",
+      "headset": " ",
+      "phone": " ",
+      "portable": " ",
+      "car": " ",
+      "default": ["", "", "", ""]
+      }
+    },
+
+    "pulseaudio#microphone": {
+      "format": "{format_source}",
+      "format-source": " {volume}%",
+      "format-source-muted": "",
+      "on-click": "~/.config/waybar/scripts/volume --toggle-mic",
+      "on-click-right": "pavucontrol",
+      "on-scroll-up": "~/.config/waybar/scripts/volume --mic-inc",
+      "on-scroll-down": "~/.config/waybar/scripts/volume --mic-dec",
+      "scroll-step": 5
+    },
+
+    "battery": {
+      "states": {
+          "good": 95,
+          "warning": 30,
+          "critical": 20
+    },
+      "format": "{icon} {capacity}%",
+      "format-charging": "󰉁 {capacity}%",
+      "format-plugged": "󰉁 {capacity}%",
+      "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+	"tooltip": false
+    },
+
+
+    "custom/power_btn": {
+      "format": "  ",
+      "on-click": "sh -c '(sleep 0.5s; wlogout --protocol layer-shell)' & disown",
+      "tooltip": false
+    },
+
+    "clock": {
+    "interval": 10,
+        "format": "  {:%Y-%m-%d 󰥔 %H:%M}",
+ //       "format": "{:  :%Y-%m-%d :󰥔  :%H:%M}",
+//      "format": "{:󰥔  %H:%M}",
+//      "tooltip-format": "{:  %A, %d-%m-%Y}",
+//      "format-alt": "{:󰸗 %e %B %Y}"
+//        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+//        "format-alt": "{:%Y-%m-%d}"
+    },
+
+     "hyprland/workspaces": {
+   	 "active-only": false,
+    	"all-outputs": false,
+   	 "format": "{icon}",
+     "format-icons": {
+       "active": "󱚥",
+       "default": "󱠇",
+     },
+    	"show-special": true
+    },
+
+    "custom/workspaces": {
+      "format": "{icon}",
+      "format-icons": {
+          "active": "󰀉",
+          "default": "",
+          "urgent": "󰀨",
+          },
+    "persistent-workspaces": {
+        "*": 4
+          }
+    },
+
+    "custom/weather": {
+      "exec": "curl -s 'https://wttr.in/novomoskovsk\\?format=2' | tr -d ' '",
+      "tooltip": false,
+      "interval": 2000
+    }
+}
