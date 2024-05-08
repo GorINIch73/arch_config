@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Directory containing image files
-image_dir="$HOME/Downloads/Wallpaper"
+image_dir="$HOME/Downloads/Wallpapers"
 
 # Transition options
 transition_fps=60
